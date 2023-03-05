@@ -5,7 +5,7 @@ import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.AddProg
 import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.DeleteProgramingLanguageRequest;
 import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.UpdateProgramingLanguageRequest;
 import com.mfbilgin.kodlama.io.devs.business.responses.programingLanguage.GetProgramingLanguageResponse;
-import com.mfbilgin.kodlama.io.devs.dataAccess.abstracts.ProgramingLanguagesRepository;
+import com.mfbilgin.kodlama.io.devs.dataAccess.ProgramingLanguagesRepository;
 import com.mfbilgin.kodlama.io.devs.entities.ProgramingLanguage;
 import org.springframework.stereotype.Service;
 
