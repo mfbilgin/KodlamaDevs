@@ -1,9 +1,10 @@
 package com.mfbilgin.kodlama.io.devs.webApi.controller;
 
 import com.mfbilgin.kodlama.io.devs.business.abstracts.ProgramingLanguagesService;
-import com.mfbilgin.kodlama.io.devs.dataAccess.abstracts.ProgramingLanguagesRepository;
-import com.mfbilgin.kodlama.io.devs.entities.ProgramingLanguage;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.AddProgramingLanguageRequest;
+import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.DeleteProgramingLanguageRequest;
+import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.UpdateProgramingLanguageRequest;
+import com.mfbilgin.kodlama.io.devs.business.responses.programingLanguage.GetProgramingLanguageResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +19,27 @@ public class ProgramingLanguagesController {
         this.programingLanguagesService = programingLanguagesService;
     }
     @GetMapping("/getAll")
-    public List<ProgramingLanguage> getAll()
+    public List<GetProgramingLanguageResponse> getAll()
     {
         return programingLanguagesService.getAll();
     }
     @GetMapping("/getById")
-    public ProgramingLanguage getById(int id){
+    public GetProgramingLanguageResponse getById(int id){
         return programingLanguagesService.getById(id);
     }
     @PostMapping("/add")
-    public List<ProgramingLanguage> add(@RequestBody ProgramingLanguage programingLanguage) throws Exception
+    public List<GetProgramingLanguageResponse> add(@RequestBody AddProgramingLanguageRequest programingLanguage) throws Exception
     {
         programingLanguagesService.add(programingLanguage);
         return programingLanguagesService.getAll();
     }
     @PostMapping("/update")
-    public List<ProgramingLanguage> update(@RequestBody ProgramingLanguage programingLanguage) throws Exception {
+    public List<GetProgramingLanguageResponse> update(@RequestBody UpdateProgramingLanguageRequest programingLanguage) throws Exception {
         programingLanguagesService.update(programingLanguage);
         return programingLanguagesService.getAll();
     }
     @PostMapping("/delete")
-    public List<ProgramingLanguage> delete(@RequestBody ProgramingLanguage programingLanguage) {
+    public List<GetProgramingLanguageResponse> delete(@RequestBody DeleteProgramingLanguageRequest programingLanguage) {
         programingLanguagesService.delete(programingLanguage);
         return programingLanguagesService.getAll();
     }
