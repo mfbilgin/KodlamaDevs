@@ -1,7 +1,7 @@
 package com.mfbilgin.kodlama.io.devs.business.concretes;
 
 import com.mfbilgin.kodlama.io.devs.business.abstracts.FrameworkService;
-import com.mfbilgin.kodlama.io.devs.business.core.utilities.mappers.ModelMapperService;
+import com.mfbilgin.kodlama.io.devs.core.utilities.mappers.ModelMapperService;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.AddFrameworkRequest;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.DeleteFrameworkRequest;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.UpdateFrameworkRequest;

@@ -1,4 +1,4 @@
-package com.mfbilgin.kodlama.io.devs.business.core.utilities.mappers;
+package com.mfbilgin.kodlama.io.devs.core.utilities.mappers;
 
 import org.modelmapper.ModelMapper;
 

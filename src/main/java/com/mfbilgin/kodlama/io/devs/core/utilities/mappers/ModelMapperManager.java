@@ -1,4 +1,4 @@
-package com.mfbilgin.kodlama.io.devs.business.core.utilities.mappers;
+package com.mfbilgin.kodlama.io.devs.core.utilities.mappers;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
