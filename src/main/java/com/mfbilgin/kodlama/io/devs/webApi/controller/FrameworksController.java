@@ -2,9 +2,10 @@ package com.mfbilgin.kodlama.io.devs.webApi.controller;
 
 import com.mfbilgin.kodlama.io.devs.business.abstracts.FrameworkService;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.AddFrameworkRequest;
-import com.mfbilgin.kodlama.io.devs.business.requests.framework.DeleteFrameworkRequest;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.UpdateFrameworkRequest;
-import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetFrameworkResponse;
+import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetAllFrameworkResponse;
+import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetByIdFrameworkResponse;
+import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetByLanguageIdFrameworkResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,32 +17,33 @@ import java.util.List;
 public class FrameworksController {
     private final FrameworkService frameworkService;
 
-    @GetMapping("/getAll")
-    public List<GetFrameworkResponse> getAll(){
+    @GetMapping()
+    public List<GetAllFrameworkResponse> getAll() {
         return frameworkService.getAll();
     }
 
     @GetMapping("/getByLanguageId/{languageId}")
-    public List<GetFrameworkResponse> getByLanguageId(@PathVariable int languageId){
+    public List<GetByLanguageIdFrameworkResponse> getByLanguageId(@PathVariable int languageId) {
         return frameworkService.getByLanguageId(languageId);
     }
-    @GetMapping("/getById/{id}")
-    public GetFrameworkResponse getById(@PathVariable int id){
+
+    @GetMapping("/{id}")
+    public GetByIdFrameworkResponse getById(@PathVariable int id) {
         return frameworkService.getById(id);
     }
-    @PostMapping("/add")
-    public List<GetFrameworkResponse> add(@RequestBody AddFrameworkRequest request){
+
+    @PostMapping()
+    public void add(@RequestBody AddFrameworkRequest request) {
         frameworkService.add(request);
-        return frameworkService.getAll();
     }
-    @PostMapping("/delete")
-    public List<GetFrameworkResponse> delete(@RequestBody DeleteFrameworkRequest request){
-        frameworkService.delete(request);
-        return frameworkService.getAll();
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        frameworkService.delete(id);
     }
-    @PostMapping("/update")
-    public List<GetFrameworkResponse> update(@RequestBody UpdateFrameworkRequest request){
+
+    @PutMapping()
+    public void update(@RequestBody UpdateFrameworkRequest request) {
         frameworkService.update(request);
-        return frameworkService.getAll();
     }
 }

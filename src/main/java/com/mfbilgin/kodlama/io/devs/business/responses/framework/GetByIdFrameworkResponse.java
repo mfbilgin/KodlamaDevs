@@ -1,13 +1,14 @@
-package com.mfbilgin.kodlama.io.devs.business.responses.programingLanguage;
+package com.mfbilgin.kodlama.io.devs.business.responses.framework;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class GetProgramingLanguageResponse {
+@AllArgsConstructor
+public class GetByIdFrameworkResponse {
     private int id;
     private String name;
+    private String language;
 }

@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class GetFrameworkResponse {
+@NoArgsConstructor
+public class GetByLanguageIdFrameworkResponse {
     private int id;
     private String name;
     private String language;

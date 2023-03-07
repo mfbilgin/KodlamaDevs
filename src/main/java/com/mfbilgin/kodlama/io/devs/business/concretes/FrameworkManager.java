@@ -1,17 +1,20 @@
 package com.mfbilgin.kodlama.io.devs.business.concretes;
 
 import com.mfbilgin.kodlama.io.devs.business.abstracts.FrameworkService;
+import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetByIdFrameworkResponse;
+import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetByLanguageIdFrameworkResponse;
 import com.mfbilgin.kodlama.io.devs.core.utilities.mappers.ModelMapperService;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.AddFrameworkRequest;
-import com.mfbilgin.kodlama.io.devs.business.requests.framework.DeleteFrameworkRequest;
 import com.mfbilgin.kodlama.io.devs.business.requests.framework.UpdateFrameworkRequest;
-import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetFrameworkResponse;
+import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetAllFrameworkResponse;
 import com.mfbilgin.kodlama.io.devs.dataAccess.FrameworkRepository;
 import com.mfbilgin.kodlama.io.devs.entities.Framework;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -28,59 +31,55 @@ public class FrameworkManager implements FrameworkService {
     }
 
     @Override
-    public void delete(DeleteFrameworkRequest request) {
-        Framework framework = modelMapperService.forRequest().map(request, Framework.class);
-        frameworkRepository.delete(framework);
+    public void delete(int id) {
+        frameworkRepository.deleteById(id);
     }
 
     @Override
     public void update(UpdateFrameworkRequest request) {
         Framework framework = modelMapperService.forRequest().map(request, Framework.class);
-        Framework frameworkToUpdate = new Framework();
-        frameworkToUpdate.setId(framework.getId());
-        frameworkToUpdate.setName(framework.getName());
-        frameworkToUpdate.setLanguage(framework.getLanguage());
         if (isExist(framework))
             throw new RuntimeException("Bu framework zaten mevcut!");
-        frameworkRepository.save(frameworkToUpdate);
+        frameworkRepository.save(framework);
     }
 
     @Override
-    public List<GetFrameworkResponse> getAll() {
+    public List<GetAllFrameworkResponse> getAll() {
         List<Framework> frameworks = frameworkRepository.findAll();
-        return getGetFrameworkResponses(frameworks);
-    }
-
-    private List<GetFrameworkResponse> getGetFrameworkResponses(List<Framework> frameworks) {
-        List<GetFrameworkResponse> responses = frameworks.stream().map(framework -> {
-            GetFrameworkResponse response = new GetFrameworkResponse();
-            response.setId(framework.getId());
-            response.setName(framework.getName());
-            response.setLanguage(framework.getLanguage().getName());
-            return response;
-        }).toList();
+        List<GetAllFrameworkResponse> responses = frameworks.stream().map(framework -> {
+            GetAllFrameworkResponse getAllFrameworkResponse = modelMapperService.forResponse()
+                    .map(framework, GetAllFrameworkResponse.class);
+            getAllFrameworkResponse.setLanguage(framework.getLanguage().getName());
+            return getAllFrameworkResponse;
+        }).collect(Collectors.toList());
         return responses.isEmpty() ? null : responses;
     }
 
+
     @Override
-    public List<GetFrameworkResponse> getByLanguageId(int languageId) {
+    public List<GetByLanguageIdFrameworkResponse> getByLanguageId(int languageId) {
         List<Framework> frameworks = frameworkRepository.getByLanguageId(languageId);
-        return getGetFrameworkResponses(frameworks);
+        if (frameworks.size() == 0) return null;
+        List<GetByLanguageIdFrameworkResponse> responses = frameworks.stream().map(framework -> {
+            GetByLanguageIdFrameworkResponse getByLanguageIdFrameworkResponse = modelMapperService.forResponse()
+                    .map(framework, GetByLanguageIdFrameworkResponse.class);
+            getByLanguageIdFrameworkResponse.setLanguage(framework.getLanguage().getName());
+            return getByLanguageIdFrameworkResponse;
+        }).collect(Collectors.toList());
+        return responses.isEmpty() ? null : responses;
     }
 
 
     @Override
-    public GetFrameworkResponse getById(int id) {
-        return frameworkRepository.findById(id).map(framework -> {
-            GetFrameworkResponse response = new GetFrameworkResponse();
-            response.setId(framework.getId());
-            response.setName(framework.getName());
-            response.setLanguage(framework.getLanguage().getName());
-            return response;
-        }).orElse(null);
+    public GetByIdFrameworkResponse getById(int id) {
+        Framework framework = frameworkRepository.findById(id).orElse(null);
+        GetByIdFrameworkResponse response = modelMapperService.forResponse().map(framework, GetByIdFrameworkResponse.class);
+        response.setLanguage(Objects.requireNonNull(framework).getLanguage().getName());
+        return response;
     }
 
     private boolean isExist(Framework framework) {
         return frameworkRepository.findAll().stream().anyMatch(f -> f.getName().equals(framework.getName()) && f.getLanguage().getId() == (framework.getLanguage().getId()));
     }
+
 }

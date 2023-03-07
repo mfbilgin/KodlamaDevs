@@ -18,6 +18,6 @@ public class ProgramingLanguage {
     private int id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "language" ,cascade = CascadeType.ALL ,fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "language" ,cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     private List<Framework> frameworks;
 }
