@@ -12,5 +12,5 @@ import java.util.List;
 public class GetByIdProgramingLanguageResponse {
     private int id;
     private String name;
-    private List<String> frameworks;
+    private List<String> frameworkName;
 }
