@@ -9,6 +9,7 @@ import com.mfbilgin.kodlama.io.devs.business.responses.framework.GetByLanguageId
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class FrameworksController {
     }
 
     @PostMapping()
-    public void add(@RequestBody AddFrameworkRequest request) {
+    public void add(@RequestBody @Valid AddFrameworkRequest request) {
         frameworkService.add(request);
     }
 
@@ -43,7 +44,7 @@ public class FrameworksController {
     }
 
     @PutMapping()
-    public void update(@RequestBody UpdateFrameworkRequest request) {
+    public void update(@RequestBody @Valid UpdateFrameworkRequest request) {
         frameworkService.update(request);
     }
 }
