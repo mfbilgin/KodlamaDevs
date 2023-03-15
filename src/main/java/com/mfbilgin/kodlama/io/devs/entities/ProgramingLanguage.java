@@ -16,8 +16,10 @@ public class ProgramingLanguage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "name")
+
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
-    @OneToMany(mappedBy = "language" ,cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "language")
     private List<Framework> frameworks;
 }
