@@ -17,11 +17,10 @@ public class Framework {
     @Column(name="id")
     private int id;
 
-    @Column(name="name")
+    @Column(name="name", unique = true, nullable = false)
     private String name;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="language_id",nullable = false)
     private ProgramingLanguage language;
 }
