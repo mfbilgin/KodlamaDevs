@@ -5,20 +5,19 @@ import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.AddProg
 import com.mfbilgin.kodlama.io.devs.business.requests.programingLanguage.UpdateProgramingLanguageRequest;
 import com.mfbilgin.kodlama.io.devs.business.responses.programingLanguage.GetAllProgramingLanguageResponse;
 import com.mfbilgin.kodlama.io.devs.business.responses.programingLanguage.GetByIdProgramingLanguageResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/programingLanguages")
+@AllArgsConstructor
 public class ProgramingLanguagesController {
     private final ProgramingLanguagesService programingLanguagesService;
 
-
-    public ProgramingLanguagesController(ProgramingLanguagesService programingLanguagesService) {
-        this.programingLanguagesService = programingLanguagesService;
-    }
 
     @GetMapping()
     public List<GetAllProgramingLanguageResponse> getAll() {
@@ -32,12 +31,12 @@ public class ProgramingLanguagesController {
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void add(@RequestBody AddProgramingLanguageRequest programingLanguage) throws Exception {
+    public void add(@RequestBody @Valid AddProgramingLanguageRequest programingLanguage) throws Exception {
         programingLanguagesService.add(programingLanguage);
     }
 
     @PutMapping()
-    public void update(@RequestBody UpdateProgramingLanguageRequest programingLanguage) throws Exception {
+    public void update(@RequestBody @Valid UpdateProgramingLanguageRequest programingLanguage) throws Exception {
         programingLanguagesService.update(programingLanguage);
     }
 
