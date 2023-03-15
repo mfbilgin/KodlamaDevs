@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddFrameworkRequest {
-    private int id;
     private String name;
     private int languageId;
 
